@@ -1,0 +1,43 @@
+#agents-page {
+    .right-nav,
+    .main-nav {
+        margin: 0;
+
+        li {
+            width: 100%;
+            top: 0;
+            left: 0;
+            border-bottom: 1px solid #ddd;
+
+            a {
+                padding: 20px;
+                margin: 0;
+
+                &:before {
+                    bottom: 0;
+                }
+            }
+
+            &.focus {
+                background: #f00 !important;
+            }
+        }
+    }
+
+    .card {
+        .body {
+            .tab-content {
+                text-align: center;
+
+                img {
+                    margin: 0 auto;
+                }
+
+                h2 {
+                    margin: 0;
+                    margin-bottom: 20px;
+                }
+            }
+        }
+    }
+}

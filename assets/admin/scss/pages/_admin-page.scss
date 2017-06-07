@@ -1,0 +1,92 @@
+#admin-page {
+    font-size: 16px;
+
+    .right-nav,
+    .main-nav {
+        margin: 0;
+
+        li {
+            width: 100%;
+            top: 0;
+            left: 0;
+            border-bottom: 1px solid #ddd;
+
+            a {
+                padding: 20px;
+                margin: 0;
+
+                &:before {
+                    bottom: 0;
+                }
+            }
+
+            &.focus {
+                background: #f00 !important;
+            }
+        }
+    }
+
+    .nav-tabs li.active a:hover, .nav-tabs li.active a:active, .nav-tabs li.active a:focus {
+        background: #f1f1f1 !important;
+    }
+
+    .sidebar .menu {
+        height: 100%;
+        padding-bottom: 55px;
+    }
+
+    .card {
+        .header {
+            padding: 0;
+            height: 70px;
+
+            h2 {
+                float: left;
+                font-size: 20px;
+                margin: 0;
+                line-height: 70px;
+                margin-left: 20px;
+
+                strong {
+                    letter-spacing: 5px;
+                }
+            }
+
+            .header-dropdown {
+                top: 0;
+                right: 0;
+                margin: 0;
+                padding: 0;
+                height: 70px;
+
+                a.dropdown-toggle {
+                    padding: 20px;
+                    line-height: 70px;
+                }
+
+                i {
+                    line-height: 70px;
+                }
+            }
+        }
+
+        .body {
+            strong {
+                font-size: 18px;
+            }
+        }
+
+        .preview {
+            img {
+                max-height: 330px;
+                margin: 0 auto;
+            }
+        }
+
+        select {
+            strong {
+                font-weight: bold;
+            }
+        }
+    }
+}

@@ -1,0 +1,86 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+#status-page {
+    background: linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url('../images/home.jpeg') no-repeat 50% 0 fixed;
+    background-color: rgba(255, 255, 255, 0.8);
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+    /* Margin bottom by footer height */
+    margin-bottom: 250px;
+
+    .content {
+        margin: 50px 0;
+
+        .logo {
+            img {
+                margin: 0 auto;
+            }
+        }
+
+        .details {
+            h1, h2, h3, h4, h5, h6 {
+                margin: 0;
+            }
+
+            h3 {
+                margin-bottom: 5px;
+            }
+
+            p {
+                margin: 5px 0 0;
+            }
+
+            .price {
+                font-size: 24px;
+
+                span {
+                    font-weight: normal;
+                }
+            }
+        }
+
+        .gallery-card {
+            img {
+                margin: 0;
+                width: 100%;
+            }
+        }
+
+        .attachments {
+            padding: 0;
+
+            li {
+                list-style: none;
+            }
+
+            i {
+                color: #f00;
+                margin-right: 5px;
+            }
+        }
+
+        #wizard_horizontal {
+            h3 {
+                margin: 0 0 20px 0;
+            }
+            .steps {
+                a {
+                    margin: 1px;
+                }
+            }
+            .content {
+                margin: 15px 1px;
+            }
+
+            iframe {
+                max-width: 100%;
+            }
+        }
+    }
+}

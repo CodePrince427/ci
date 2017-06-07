@@ -1,0 +1,21 @@
+<IfModule mod_rewrite.c>
+	Options +FollowSymLinks
+    RewriteEngine On
+
+    # rewritebase added to run locally
+      RewriteBase /mut/ci_real_estate/
+
+    # Checks to see if the user is attempting to access a valid file
+      RewriteCond %{REQUEST_FILENAME} !-f
+      RewriteCond %{REQUEST_FILENAME} !-d
+      RewriteRule ^(.*)$ index.php/$1 [L]
+
+	  # RewriteCond %{HTTP_HOST} !^www\.valemall\.com
+	  # RewriteRule (.*) http://www.valemall.com/$1 [R=301,L] 
+	  # Add a extension to URL
+	  # RewriteCond %{REQUEST_FILENAME} !-f
+	  # RewriteCond %{REQUEST_FILENAME} !-d
+	  # RewriteRule ^(.*)$ $1.php [L,QSA]
+	  # http://domain/about -> http://domain/about.php
+	  # Force "www." in the domain name.
+</IfModule>
