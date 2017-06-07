@@ -15,7 +15,7 @@
 				<?php echo $success; unset($success); ?></div></div><?php }	?>
 				
                 <form id="login_form" action="verifylogin" method="POST">
-                    <div class="msg">AGENT ACCESS</div>
+                    <div class="msg">SOME TEXT ACCESS</div>
                     <div class="input-group">
                         <span class="input-group-addon">
                             <i class="material-icons">person</i>
