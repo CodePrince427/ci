@@ -86,11 +86,11 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 
 
 // MY PATH CONSTANTS
-define('HTTP_PATH', 'http://' . $_SERVER['SERVER_NAME'].'/mut/ci_real_estate/');
-define('ADMIN_PATH', 'http://' . $_SERVER['SERVER_NAME'].'/mut/ci_real_estate/admin/');
-define('ASSETS_ADMIN_DIR', 'http://' . $_SERVER['SERVER_NAME'].'/mut/ci_real_estate/assets/admin/');
-define('ASSETS_ADMIN_DIR_IMG', 'http://' . $_SERVER['SERVER_NAME'].'/mut/ci_real_estate/assets/admin/images/');
-define('ASSETS_ADMIN_DIR_FILE', 'http://' . $_SERVER['SERVER_NAME'].'/mut/ci_real_estate/assets/admin/files/');
-define('ASSETS_ADMIN_DIR_USER', 'http://' . $_SERVER['SERVER_NAME'].'/mut/ci_real_estate/assets/admin/images/users/');
-define('ASSETS_ADMIN_DIR_GALLERY', 'http://' . $_SERVER['SERVER_NAME'].'/mut/ci_real_estate/assets/admin/images/image-gallery/');
-define('ASSETS_ADMIN_DIR_THUMBNAIL', 'http://' . $_SERVER['SERVER_NAME'].'/mut/ci_real_estate/assets/admin/images/image-gallery/thumb/');
+define('HTTP_PATH', 'http://' . $_SERVER['SERVER_NAME'].'/Lillian/');
+define('ADMIN_PATH', 'http://' . $_SERVER['SERVER_NAME'].'/Lillian/admin/');
+define('ASSETS_ADMIN_DIR', 'http://' . $_SERVER['SERVER_NAME'].'/Lillian/assets/admin/');
+define('ASSETS_ADMIN_DIR_IMG', 'http://' . $_SERVER['SERVER_NAME'].'/Lillian/assets/admin/images/');
+define('ASSETS_ADMIN_DIR_FILE', 'http://' . $_SERVER['SERVER_NAME'].'/Lillian/assets/admin/files/');
+define('ASSETS_ADMIN_DIR_USER', 'http://' . $_SERVER['SERVER_NAME'].'/Lillian/assets/admin/images/users/');
+define('ASSETS_ADMIN_DIR_GALLERY', 'http://' . $_SERVER['SERVER_NAME'].'/Lillian/assets/admin/images/image-gallery/');
+define('ASSETS_ADMIN_DIR_THUMBNAIL', 'http://' . $_SERVER['SERVER_NAME'].'/Lillian/assets/admin/images/image-gallery/thumb/');

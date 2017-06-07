@@ -3,7 +3,7 @@
     RewriteEngine On
 
     # rewritebase added to run locally
-      RewriteBase /mut/ci_real_estate/
+      RewriteBase /Lillian/
 
     # Checks to see if the user is attempting to access a valid file
       RewriteCond %{REQUEST_FILENAME} !-f
