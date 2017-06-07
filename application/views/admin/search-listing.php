@@ -122,19 +122,17 @@
 										<?php for($i=0; $i<count($listing_search); $i++){ ?>
                                         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                                             <div class="result">
-                                                <div class="">
-													<?php if($listing_search[$i]['address'] == ''){ ?>
-													<span>Sorry No Results Found....</span>
-													<?php }else{ ?>
-                                                    <a href="<?php echo base_url(); ?>admin/edit_listing/<?php echo $listing_search[$i]['listing_id']; ?>" class="">
-                                                        <img src="<?=ASSETS_ADMIN_DIR_GALLERY?><?php echo $listing_search[$i]['pic']; ?>" class="img-responsive thumbnail" />
-                                                    </a>
-                                                    <div class="media-body">
-                                                        <h3 class="media-heading"><?php echo $listing_search[$i]['address']; ?></h3>
-                                                        <h5 class="price">$<?php echo $listing_search[$i]['price']; ?></h5>
-                                                    </div>
-													<?php } ?>
+												<?php if($listing_search[$i]['address'] == ''){ ?>
+												<span>No results found...</span>
+												<?php }else{ ?>
+                                                <a href="<?php echo base_url(); ?>admin/edit_listing/<?php echo $listing_search[$i]['listing_id']; ?>" class="">
+                                                    <img src="<?=ASSETS_ADMIN_DIR_GALLERY?><?php echo $listing_search[$i]['pic']; ?>" class="img-responsive thumbnail" />
+                                                </a>
+                                                <div class="media-body">
+                                                    <h3 class="media-heading"><?php echo $listing_search[$i]['address']; ?></h3>
+                                                    <h5 class="price">$<?php echo $listing_search[$i]['price']; ?></h5>
                                                 </div>
+												<?php } ?>
                                             </div>
                                         </div>
 										<?php } ?>
@@ -147,3 +145,15 @@
             </div>
         </div>
     </section>
+    <style>
+    .tab-content .result .media-body {
+        text-align: center;
+    }
+    .tab-content .result a img {
+        margin-bottom: 10px;
+    }
+    .tab-content .result img {
+        width: 300px;
+        margin: 0 auto;
+    }
+    </style>

@@ -120,17 +120,19 @@
                                     </div>
                                     <div class="row search-results">
 										<?php for($i=0; $i<count($agent_search); $i++){ ?>
-                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                        <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                                             <div class="result">
 												<?php if($agent_search[$i]['name'] == ''){ ?>
 												<span>Sorry No Results Found....</span>
 												<?php }else{ ?>
-                                                <a href="<?php echo base_url(); ?>admin/edit_agent/<?php echo $agent_search[$i]['id']; ?>">
-                                                    <img src="<?=ASSETS_ADMIN_DIR_USER?><?php echo $agent_search[$i]['pic']; ?>" class="img-responsive img-thumbnail" style="margin-bottom:10px;">
-                                                </a>
+                                                <div class="image-crop img-thumbnail">
+                                                    <a href="<?php echo base_url(); ?>admin/edit_agent/<?php echo $agent_search[$i]['id']; ?>">
+                                                        <img src="<?=ASSETS_ADMIN_DIR_USER?><?php echo $agent_search[$i]['pic']; ?>" class="img-responsive" style="margin-bottom:10px;">
+                                                    </a>
+                                                </div>
                                                 <div class="media-body">
-                                                    <h3 class="media-heading"><?php echo $agent_search[$i]['email']; ?></h3>
-                                                    <h5 class="price"><?php echo $agent_search[$i]['cell']; ?></h5>
+                                                    <p class="media-heading"><?php echo $agent_search[$i]['email']; ?></p>
+                                                    <p class="price"><?php echo $agent_search[$i]['cell']; ?></p>
                                                 </div>
 												<?php } ?>
                                             </div>
@@ -145,3 +147,31 @@
             </div>
         </div>
     </section>
+    <style>
+    .tab-content .result {
+        text-align: left;
+    }
+    .tab-content .result .media-body {
+        text-align: center;
+    }
+    .tab-content .result a img {
+        width: 100%;
+    }
+    .tab-content .result img {
+        width: 300px;
+        margin: 0 auto;
+    }
+    .tab-content .result .image-crop {
+        overflow: hidden;
+        max-height: 200px;
+        margin-bottom: 10px;
+    }
+    .tab-content .result .media-body .media-heading {
+        font-size: 15px;
+        margin: 0;
+        word-break: break-all;
+    }
+    .tab-content .result .media-body .price {
+        font-weight: bold;
+    }
+    </style>
