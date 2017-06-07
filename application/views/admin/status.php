@@ -101,7 +101,7 @@
 						<ul class="nav nav-tabs" role="tablist">
 							<?php for($k=0; $k<$steps_counter; $k++){ ?>
 							<?php if($listing_step[0]['step_no'] == $listing_steps[$k]['step_no']){ ?>
-							<li role="presentation" class="active selected" style="background-color:#03c9ff; color:#fff;">
+							<li role="presentation" class="active selected">
 								<a href="#<?php echo $listing_steps[$k]['step_no'];?>" aria-controls="<?php echo $listing_steps[$k]['step_no'];?>" role="tab" data-toggle="tab">
 									<?php echo $listing_steps[$k]['step_no'].". ".$listing_steps[$k]['step_name']?>
 								</a>
@@ -190,17 +190,6 @@
 
     <div id="popper-content" class="hide">Content goes here</div>
 <style>
-.wizard-steps .nav.nav-tabs .active::after {
-	content: "";
-	position: absolute;
-	bottom: -7px;
-	left: 42%;
-	border-width: 10px 10px 0;
-	border-style: solid;
-	border-color: #2196F3 transparent;
-	display: block;
-	width: 0;
-}
 .wizard-steps .nav.nav-tabs a {
 	font-weight: 700;
 }
@@ -210,13 +199,14 @@
 .wizard-steps .nav.nav-tabs .disabled a {
 	font-weight: normal;
 }
+.wizard-steps .selected a {
+	color: #fff !important;
+}
 .crop-image {
-	height: 200px;
-	overflow: hidden;
+    max-width: 100%;
 }
 .crop-agent {
-	height: 300px;
-	overflow: hidden;
+	max-width: 250px;
 }
 /* Large Devices, Wide Screens */
 @media only screen and (max-width : 1200px)

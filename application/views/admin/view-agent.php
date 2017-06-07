@@ -120,7 +120,7 @@
 											<div class="crop-agent">
 												<img src="<?=ASSETS_ADMIN_DIR_USER?><?php echo $agent[0]['pic']; ?>" alt="" class="img-responsive img-thumbnail"/>
 											</div>
-                                            <br /><br />
+                                            <br />
                                             <form action="<?php echo base_url();?>admin/update_agent/<?php echo $this->uri->segment(3);?>" id="frmFileUpload" class="dropzone dz-clickable" method="POST" enctype="multipart/form-data">
                                                 <div class="form-group form-float form-group-lg">
 													<div class="form-line">
@@ -213,7 +213,7 @@
     cursor: pointer;
 }
 .crop-agent {
-	height: 300px;
-	overflow: hidden;
+	max-width: 400px;
+	margin: 0 auto;
 }
 </style>

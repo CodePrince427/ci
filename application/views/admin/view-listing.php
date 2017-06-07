@@ -488,7 +488,9 @@
 	
 	<style>
 	.crop-agent {
-		height: 300px;
-		overflow: hidden;
+		max-width: 350px;
+	}
+	.gallery-card .img-thumbnail {
+		height: auto !important;
 	}
 	</style>
