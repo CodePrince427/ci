@@ -16,11 +16,11 @@
         </div>
     </div>
     <!-- #END# Page Loader -->
-	
+
     <!-- Overlay For Sidebars -->
     <div class="overlay"></div>
     <!-- #END# Overlay For Sidebars -->
-	
+
     <!-- Search Bar -->
 	<form action="<?php echo base_url();?>admin/search_agent" method="POST">
 		<div class="search-bar">
@@ -39,7 +39,7 @@
 		</div>
 	</form>
     <!-- #END# Search Bar -->
-	
+
     <!-- Top Bar -->
     <nav class="navbar">
         <div class="container-fluid">
@@ -57,7 +57,7 @@
         </div>
     </nav>
     <!-- #Top Bar -->
-	
+
     <section>
         <!-- Left Sidebar -->
         <aside id="leftsidebar" class="sidebar">
@@ -75,7 +75,7 @@
             <!-- #Menu -->
         </aside>
         <!-- #END# Left Sidebar -->
-		
+
         <!-- Right Sidebar -->
         <aside id="rightsidebar" class="right-sidebar">
             <ul class="nav nav-tabs right-nav" role="tablist">
@@ -120,20 +120,30 @@
                                     </div>
                                     <div class="row search-results">
 										<?php for($i=0; $i<count($agent_search); $i++){ ?>
-                                        <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                                             <div class="result">
 												<?php if($agent_search[$i]['name'] == ''){ ?>
-												<span>Sorry No Results Found....</span>
+												<span>No results found.</span>
 												<?php }else{ ?>
-                                                <div class="image-crop img-thumbnail">
-                                                    <a href="<?php echo base_url(); ?>admin/edit_agent/<?php echo $agent_search[$i]['id']; ?>">
-                                                        <img src="<?=ASSETS_ADMIN_DIR_USER?><?php echo $agent_search[$i]['pic']; ?>" class="img-responsive" style="margin-bottom:10px;">
-                                                    </a>
-                                                </div>
-                                                <div class="media-body">
-                                                    <p class="media-heading"><?php echo $agent_search[$i]['email']; ?></p>
-                                                    <p class="price"><?php echo $agent_search[$i]['cell']; ?></p>
-                                                </div>
+                                                <a href="<?php echo base_url(); ?>admin/edit_agent/<?php echo $agent_search[$i]['id']; ?>" class="found-item">
+                                                    <div class="row thumbnail">
+                                                        <div class="col-lg-6 no-padding no-margin">
+                                                            <div class="crop-image">
+                                                                <img src="<?=ASSETS_ADMIN_DIR_USER?><?php echo $agent_search[$i]['pic']; ?>" class="group list-group-image img-responsive" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6 no-padding no-margin">
+                                                            <div class="caption">
+                                                                <h4 class="group inner list-group-item-heading">
+                                                                    <?php echo $agent_search[$i]['email']; ?>
+                                                                </h4>
+                                                                <p class="group inner list-group-item-text">
+                                                                    <?php echo $agent_search[$i]['cell']; ?>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </a>
 												<?php } ?>
                                             </div>
                                         </div>
@@ -147,31 +157,69 @@
             </div>
         </div>
     </section>
-    <style>
-    .tab-content .result {
-        text-align: left;
+<style>
+.tab-content .result {
+    text-align: left;
+}
+.tab-content .result .media-body {
+    text-align: center;
+}
+.tab-content .result a img {
+    width: 100%;
+    margin: 0 auto;
+}
+.tab-content .result .image-crop {
+    overflow: hidden;
+    max-height: 200px;
+    margin-bottom: 10px;
+}
+.tab-content .result .media-body .media-heading {
+    font-size: 15px;
+    margin: 0;
+    word-break: break-all;
+}
+.tab-content .result .media-body .price {
+    font-weight: bold;
+}
+.result .thumbnail {
+    padding: 10px;
+    margin: 0;
+}
+.result .thumbnail img {
+    margin: 0;
+}
+.result .thumbnail .caption {
+    /*margin-top: 10px;*/
+}
+.no-padding {
+    padding: 0 !important;
+}
+.no-margin {
+    margin: 0 !important;
+}
+.found-item:hover, .found-item:focus {
+    text-decoration: none;
+}
+.found-item:hover .thumbnail {
+    background: #f9f9f9;
+}
+.found-item .caption .list-group-item-heading {
+    word-wrap: break-word;
+    font-size: 15px;
+}
+.found-item .caption .list-group-item-text {
+    letter-spacing: 1px;
+}
+.crop-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+/* Large Devices, Wide Screens */
+@media only screen and (max-width : 1200px)
+{
+    .crop-image {
+        height: 400px;
     }
-    .tab-content .result .media-body {
-        text-align: center;
-    }
-    .tab-content .result a img {
-        width: 100%;
-    }
-    .tab-content .result img {
-        width: 300px;
-        margin: 0 auto;
-    }
-    .tab-content .result .image-crop {
-        overflow: hidden;
-        max-height: 200px;
-        margin-bottom: 10px;
-    }
-    .tab-content .result .media-body .media-heading {
-        font-size: 15px;
-        margin: 0;
-        word-break: break-all;
-    }
-    .tab-content .result .media-body .price {
-        font-weight: bold;
-    }
-    </style>
+}
+</style>

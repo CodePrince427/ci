@@ -123,12 +123,12 @@
                                         <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
                                             <div class="result">
 												<?php if($listing_search[$i]['address'] == ''){ ?>
-												<span>No results found...</span>
+												<span>No results found.</span>
 												<?php }else{ ?>
                                                 <a href="<?php echo base_url(); ?>admin/edit_listing/<?php echo $listing_search[$i]['listing_id']; ?>" class="found-item">
                                                     <div class="row thumbnail">
                                                         <div class="col-lg-6 no-padding no-margin">
-                                                                <img src="<?=ASSETS_ADMIN_DIR_GALLERY?><?php echo $listing_search[$i]['pic']; ?>" class="group list-group-image img-responsive" />
+                                                            <img src="<?=ASSETS_ADMIN_DIR_GALLERY?><?php echo $listing_search[$i]['pic']; ?>" class="group list-group-image img-responsive" />
                                                         </div>
                                                         <div class="col-lg-6 no-padding no-margin">
                                                             <div class="caption">

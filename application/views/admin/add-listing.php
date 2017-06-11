@@ -16,11 +16,11 @@
         </div>
     </div>
     <!-- #END# Page Loader -->
-	
+
     <!-- Overlay For Sidebars -->
     <div class="overlay"></div>
     <!-- #END# Overlay For Sidebars -->
-	
+
     <!-- Search Bar -->
 	<form action="<?php echo base_url();?>admin/search_listing" method="POST">
 		<div class="search-bar">
@@ -39,7 +39,7 @@
 		</div>
 	</form>
     <!-- #END# Search Bar -->
-	
+
     <!-- Top Bar -->
     <nav class="navbar">
         <div class="container-fluid">
@@ -57,7 +57,7 @@
         </div>
     </nav>
     <!-- #Top Bar -->
-	
+
     <section>
         <!-- Left Sidebar -->
         <aside id="leftsidebar" class="sidebar">
@@ -75,7 +75,7 @@
             <!-- #Menu -->
         </aside>
         <!-- #END# Left Sidebar -->
-		
+
         <!-- Right Sidebar -->
         <aside id="rightsidebar" class="right-sidebar">
             <ul class="nav nav-tabs right-nav" role="tablist">
@@ -97,12 +97,12 @@
                             <div class="row clearfix">
                                 <div class="col-xs-12 col-sm-6">
                                     <h2>CODE: <strong><?php echo $listing_code; ?></strong></h2>
-									
+
 									<?php $success = $this->session->flashdata('success'); if(!empty($success)){ ?>
 									<div class="alert alert-success"><?php echo $success; unset($success); ?></div><?php } ?>
 									<?php $error = $this->session->flashdata('error'); if(!empty($error)){ ?>
 									<div class="alert alert-danger"><?php echo $error; unset($error); ?></div><?php } ?>
-									
+
                                 </div>
                                 <ul class="header-dropdown m-r--5">
                                     <li class="dropdown">

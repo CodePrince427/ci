@@ -16,30 +16,11 @@
         </div>
     </div>
     <!-- #END# Page Loader -->
-	
+
     <!-- Overlay For Sidebars -->
     <div class="overlay"></div>
     <!-- #END# Overlay For Sidebars -->
-	
-    <!-- Search Bar -->
-	<form action="<?php echo base_url();?>admin/search_listing" method="POST">
-		<div class="search-bar">
-			<div class="search-icon">
-				<i class="material-icons">search</i>
-			</div>
-			<?php
-				echo "<input id='id' type='text' name='listings' placeholder='SEARCH LISTINGS' />";
-			?>
-			<ul>
-				<div id="result"></div>
-			</ul>
-			<div class="close-search">
-				<i class="material-icons">close</i>
-			</div>
-		</div>
-	</form>
-    <!-- #END# Search Bar -->
-	
+
     <!-- Top Bar -->
     <nav class="navbar">
         <div class="container-fluid">
@@ -50,14 +31,13 @@
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="javascript:void(0);" class="js-search" data-close="true"><i class="material-icons">search</i></a></li>
                     <li class="pull-right"><a href="javascript:void(0);" class="js-right-sidebar" data-close="true"><i class="material-icons">more_vert</i></a></li>
                 </ul>
             </div>
         </div>
     </nav>
     <!-- #Top Bar -->
-	
+
     <section>
         <!-- Left Sidebar -->
         <aside id="leftsidebar" class="sidebar">
@@ -75,7 +55,7 @@
             <!-- #Menu -->
         </aside>
         <!-- #END# Left Sidebar -->
-		
+
         <!-- Right Sidebar -->
         <aside id="rightsidebar" class="right-sidebar">
             <ul class="nav nav-tabs right-nav" role="tablist">
