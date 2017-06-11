@@ -54,7 +54,7 @@
                     <div class="body">
                         <div class="details">
                             <h4>Property Address:</h4>
-                            <p><?php echo $listing[0]['address'].",<br>".$listing[0]['city'].", ".$listing[0]['state']."<br><b>Zipcode:</b>".$listing[0]['zipcode']; ?></p>
+                            <p><?php echo $listing[0]['address'].",<br>".$listing[0]['city'].", ".$listing[0]['state']."<br>".$listing[0]['zipcode']; ?></p>
                             <br />
                             <h4>Seller:</h4>
                             <p><?php echo $seller[0]['name']; ?>, <?php echo $seller[0]['cell']; ?></p>
@@ -124,7 +124,7 @@
 						<!-- Tab panes -->
 						<div class="tab-content">
 							<?php for($l=0; $l<$steps_counter; $l++){ ?>
-							<div id="<?php echo $listing_steps[$l]['step_no'];?>" role="tabpanel" class="tab-pane 
+							<div id="<?php echo $listing_steps[$l]['step_no'];?>" role="tabpanel" class="tab-pane
 							<?php if($listing_step[0]['step_no'] == $listing_steps[$l]['step_no']){ echo "active"; }else{ echo ""; } ?>">
 								<section>
 									<h3><?php echo $listing_steps[$l]['step_no'];?>. <?php echo $listing_steps[$l]['step_name'];?></h3>
@@ -139,7 +139,7 @@
 							</div>
 							<?php } ?>
 						</div>
-					
+
 						<div class="header">
                             <h2>
                                 DOWNLOAD FILES
