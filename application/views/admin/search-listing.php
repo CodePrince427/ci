@@ -16,11 +16,11 @@
         </div>
     </div>
     <!-- #END# Page Loader -->
-	
+
     <!-- Overlay For Sidebars -->
     <div class="overlay"></div>
     <!-- #END# Overlay For Sidebars -->
-	
+
     <!-- Search Bar -->
 	<form action="<?php echo base_url();?>admin/search_listing" method="POST">
 		<div class="search-bar">
@@ -39,7 +39,7 @@
 		</div>
 	</form>
     <!-- #END# Search Bar -->
-	
+
     <!-- Top Bar -->
     <nav class="navbar">
         <div class="container-fluid">
@@ -57,7 +57,7 @@
         </div>
     </nav>
     <!-- #Top Bar -->
-	
+
     <section>
         <!-- Left Sidebar -->
         <aside id="leftsidebar" class="sidebar">
@@ -75,7 +75,7 @@
             <!-- #Menu -->
         </aside>
         <!-- #END# Left Sidebar -->
-		
+
         <!-- Right Sidebar -->
         <aside id="rightsidebar" class="right-sidebar">
             <ul class="nav nav-tabs right-nav" role="tablist">
@@ -118,20 +118,30 @@
                                             <strong>SEARCH RESULTS</strong>
                                         </div>
                                     </div>
-                                    <div class="row search-results">
-										<?php for($i=0; $i<count($listing_search); $i++){ ?>
-                                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div id="products" class="row list-group">
+                                        <?php for($i=0; $i<count($listing_search); $i++){ ?>
+                                        <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12">
                                             <div class="result">
 												<?php if($listing_search[$i]['address'] == ''){ ?>
 												<span>No results found...</span>
 												<?php }else{ ?>
-                                                <a href="<?php echo base_url(); ?>admin/edit_listing/<?php echo $listing_search[$i]['listing_id']; ?>" class="">
-                                                    <img src="<?=ASSETS_ADMIN_DIR_GALLERY?><?php echo $listing_search[$i]['pic']; ?>" class="img-responsive thumbnail" />
+                                                <a href="<?php echo base_url(); ?>admin/edit_listing/<?php echo $listing_search[$i]['listing_id']; ?>" class="found-item">
+                                                    <div class="row thumbnail">
+                                                        <div class="col-lg-6 no-padding no-margin">
+                                                                <img src="<?=ASSETS_ADMIN_DIR_GALLERY?><?php echo $listing_search[$i]['pic']; ?>" class="group list-group-image img-responsive" />
+                                                        </div>
+                                                        <div class="col-lg-6 no-padding no-margin">
+                                                            <div class="caption">
+                                                                <h4 class="group inner list-group-item-heading">
+                                                                    <?php echo $listing_search[$i]['address']; ?>
+                                                                </h4>
+                                                                <p class="group inner list-group-item-text">
+                                                                    $<?php echo $listing_search[$i]['price']; ?>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </a>
-                                                <div class="media-body">
-                                                    <h3 class="media-heading"><?php echo $listing_search[$i]['address']; ?></h3>
-                                                    <h5 class="price">$<?php echo $listing_search[$i]['price']; ?></h5>
-                                                </div>
 												<?php } ?>
                                             </div>
                                         </div>
@@ -145,15 +155,35 @@
             </div>
         </div>
     </section>
-    <style>
-    .tab-content .result .media-body {
-        text-align: center;
-    }
-    .tab-content .result a img {
-        margin-bottom: 10px;
-    }
-    .tab-content .result img {
-        width: 300px;
-        margin: 0 auto;
-    }
-    </style>
+<style>
+.tab-content .result .media-body {
+    text-align: center;
+}
+.tab-content .result img {
+    width: 100%;
+    max-height: 225px;
+    margin: 0 auto;
+}
+.result .thumbnail {
+    padding: 10px;
+    margin: 0;
+}
+.result .thumbnail img {
+    margin: 0;
+}
+.result .thumbnail .caption {
+    /*margin-top: 10px;*/
+}
+.no-padding {
+    padding: 0 !important;
+}
+.no-margin {
+    margin: 0 !important;
+}
+.found-item:hover, .found-item:focus {
+    text-decoration: none;
+}
+.found-item:hover .thumbnail {
+    background: #f9f9f9;
+}
+</style>

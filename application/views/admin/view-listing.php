@@ -485,26 +485,26 @@
 
     </section>
 
-	<style>
-    .content .card {
-        margin: 0;
-    }
-	.crop-agent {
-		max-width: 350px;
-	}
-	.gallery-card .img-thumbnail {
-		height: auto !important;
-	}
-    .uploaded-pdfs-row {
-        margin: 0;
-    }
-    .uploaded-pdfs i {
-        font-size: 24px;
-        color: #f00;
-        margin-right: 5px;
-    }
-    .uploaded-pdfs li {
-        border: none;
-        margin: 0 !important;
-    }
-	</style>
+<style>
+.content .card {
+    margin: 0;
+}
+.crop-agent {
+	max-width: 350px;
+}
+.gallery-card .img-thumbnail {
+	height: auto !important;
+}
+.uploaded-pdfs-row {
+    margin: 0;
+}
+.uploaded-pdfs i {
+    font-size: 24px;
+    color: #f00;
+    margin-right: 5px;
+}
+.uploaded-pdfs li {
+    border: none;
+    margin: 0 !important;
+}
+</style>
