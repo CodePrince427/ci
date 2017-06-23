@@ -153,36 +153,29 @@
 				$listing_id = $result2['id'];
 				if(!empty($_FILES['pic']['name'])){
 					$tempFile1 = $_FILES['pic']['tmp_name'];
+					$origFile1 = $_FILES['pic']['name'];
 					
-					//Include ImgCompressor.php
-					include_once('ImgCompressor.php');
-
-					//Setting
-					$setting = array(
-						'directory' => getcwd().'/assets/admin/images/image-gallery', // directory file compressed output
-						'file_type' => array( // file format allowed
-							'image/jpeg',
-							'image/png',
-							'image/gif'
-						)
-					);
-
-					//Create Object
-					$ImgCompressor = new ImgCompressor($setting);
-
-					//Run('STRING original file path', 'output file type', INTEGER Compression level: from 0 (no compression) to 9);
-					$result3 = $ImgCompressor->run($tempFile1, 'jpg', 9); // example level = 2 same quality 80%, level = 7 same quality 30% etc
-					//echo "<pre>";print_r($result3['data']['compressed']);exit;
-					
-					//$fileName1 = substr(sha1(rand(000,9999)),0,7).$_FILES['pic']['name'];
-					//$targetPath1 = getcwd().'/assets/admin/images/image-gallery/';
-					$CompressedFile1 = $result3['data']['compressed']['name'];
-					$targetFile1 = $result3['data']['compressed']['image'];
-					move_uploaded_file($CompressedFile1,$targetFile1);
-					
-					$data_listing_pic['listing_id'] = $listing_id;
-					$data_listing_pic['pic'] = $CompressedFile1;
-					$result4 = $this->listings_model->add_listing_pic($data_listing_pic);
+					$ext = pathinfo($origFile1, PATHINFO_EXTENSION);
+					if($ext == 'png'){
+						$fileName1 = substr(sha1(rand(000,9999)),0,7).$_FILES['pic']['name'];
+						$targetPath1 = getcwd().'/assets/admin/images/image-gallery/';
+						$targetFile1 = $targetPath1.$fileName1;
+						move_uploaded_file($tempFile1,$targetFile1);
+						
+						$data_listing_pic['listing_id'] = $listing_id;
+						$data_listing_pic['pic'] = $fileName1;
+						$result4 = $this->listings_model->add_listing_pic($data_listing_pic);
+					}else{
+						$image = imagecreatefromjpeg($tempFile1);
+						$fileName1 = substr(sha1(rand(000,9999)),0,7).$_FILES['pic']['name'];
+						$targetPath1 = getcwd().'/assets/admin/images/image-gallery/';
+						$CompressedFile1 = $targetPath1.$fileName1;
+						ImageJPEG($image,$CompressedFile1,50);
+						
+						$data_listing_pic['listing_id'] = $listing_id;
+						$data_listing_pic['pic'] = $fileName1;
+						$result4 = $this->listings_model->add_listing_pic($data_listing_pic);						
+					}
 				}else{
 					echo "empty pic";
 				}
@@ -222,44 +215,37 @@
 				if(!empty($_FILES['pic']['name'])){
 					//Pic
 					$tempFile1 = $_FILES['pic']['tmp_name'];
+					$origFile1 = $_FILES['pic']['name'];
 					
-					//Include ImgCompressor.php
-					include_once('ImgCompressor.php');
-
-					//Setting
-					$setting = array(
-						'directory' => getcwd().'/assets/admin/images/image-gallery', // directory file compressed output
-						'file_type' => array( // file format allowed
-							'image/jpeg',
-							'image/png',
-							'image/gif'
-						)
-					);
-
-					//Create Object
-					$ImgCompressor = new ImgCompressor($setting);
-
-					//Run('STRING original file path', 'output file type', INTEGER Compression level: from 0 (no compression) to 9);
-					$result3 = $ImgCompressor->run($tempFile1, 'jpg', 9); // example level = 2 same quality 80%, level = 7 same quality 30% etc
-
-					$CompressedFile1 = $result3['data']['compressed']['name'];
-					$targetFile1 = $result3['data']['compressed']['image'];
-					move_uploaded_file($CompressedFile1,$targetFile1);
-					
-					//$fileName1 = substr(sha1(rand(000,9999)),0,7).$_FILES['pic']['name'];
-					//$targetPath1 = getcwd().'/assets/admin/images/image-gallery/';
-					//$targetFile1 = $targetPath1.$fileName1;
-					//move_uploaded_file($tempFile1,$targetFile1);
-
-					$result4 = $this->listings_model->get_listing_pic($listing_id);
-					$pic = $result4[0]['pic'];
-					$path = getcwd().'/assets/admin/images/image-gallery/'.$pic;
-					unlink($path);
-					
-					$data_listing_pic['pic'] = $CompressedFile1;
-					$result5 = $this->listings_model->edit_listing_pic($listing_id,$data_listing_pic);
-				}else{
-					echo "empty pic";
+					$ext = pathinfo($origFile1, PATHINFO_EXTENSION);
+					if($ext == 'png'){
+						$fileName1 = substr(sha1(rand(000,9999)),0,7).$_FILES['pic']['name'];
+						$targetPath1 = getcwd().'/assets/admin/images/image-gallery/';
+						$targetFile1 = $targetPath1.$fileName1;
+						move_uploaded_file($tempFile1,$targetFile1);
+						
+						$result3 = $this->listings_model->get_listing_pic($listing_id);
+						$pic = $result3[0]['pic'];
+						$path = getcwd().'/assets/admin/images/image-gallery/'.$pic;
+						unlink($path);
+						
+						$data_listing_pic['pic'] = $fileName1;
+						$result4 = $this->listings_model->edit_listing_pic($listing_id,$data_listing_pic);
+					}else{
+						$image = imagecreatefromjpeg($tempFile1);
+						$fileName1 = substr(sha1(rand(000,9999)),0,7).$_FILES['pic']['name'];
+						$targetPath1 = getcwd().'/assets/admin/images/image-gallery/';
+						$CompressedFile1 = $targetPath1.$fileName1;
+						ImageJPEG($image,$CompressedFile1,50);
+						
+						$result3 = $this->listings_model->get_listing_pic($listing_id);
+						$pic = $result3[0]['pic'];
+						$path = getcwd().'/assets/admin/images/image-gallery/'.$pic;
+						unlink($path);
+						
+						$data_listing_pic['pic'] = $fileName1;
+						$result4 = $this->listings_model->edit_listing_pic($listing_id,$data_listing_pic);
+					}
 				}
 				
 				if(!empty($_FILES['pdf']['name'])){
@@ -272,10 +258,8 @@
 					
 					$data_listing_pdf['listing_id'] = $listing_id;
 					$data_listing_pdf['pdf'] = $fileName2;
-					$result6 = $this->listings_model->add_listing_pdf($data_listing_pdf);
-				}else{
-					echo "empty pdf";
-				}
+					$result5 = $this->listings_model->add_listing_pdf($data_listing_pdf);
+				} 
 				
 				redirect('admin/edit_listing/'.$listing_id.'');				
 			}
@@ -364,42 +348,33 @@
 				//Dropzone - Gallery
 				if(!empty($_FILES)){
 					$tempFile1 = $_FILES['file']['tmp_name'];
+					$origFile1 = $_FILES['file']['name'];
 					
-					//Include ImgCompressor.php
-					include_once('ImgCompressor.php');
-
-					//Setting
-					$setting = array(
-						'directory' => getcwd().'/assets/admin/images/image-gallery', // directory file compressed output
-						'file_type' => array( // file format allowed
-							'image/jpeg',
-							'image/png',
-							'image/gif'
-						)
-					);
-
-					//Create Object
-					$ImgCompressor = new ImgCompressor($setting);
-
-					//Run('STRING original file path', 'output file type', INTEGER Compression level: from 0 (no compression) to 9);
-					$result = $ImgCompressor->run($tempFile1, 'jpg', 9); // example level = 2 same quality 80%, level = 7 same quality 30% etc
-
-					$CompressedFile1 = $result['data']['compressed']['name'];
-					$targetFile1 = $result['data']['compressed']['image'];
-					move_uploaded_file($CompressedFile1,$targetFile1);
-					
-					//$fileName = substr(sha1(rand(000,9999)),0,7).$_FILES['file']['name'];
-					//$targetPath = getcwd().'/assets/admin/images/image-gallery/';
-					//$targetFile = $targetPath.$fileName;
-					//move_uploaded_file($tempFile,$targetFile);
-					
-					$data_listing_gallery['listing_id'] = $listing_id;
-					//$data_listing_gallery['pic'] = $fileName;
-					$data_listing_gallery['pic'] = $CompressedFile1;
-					
-					$this->load->database(); // load database
-					$this->db->insert('listing_gallery',array('listing_id' => $listing_id,'pic' => $CompressedFile1));
-					
+					$ext = pathinfo($origFile1, PATHINFO_EXTENSION);
+					if($ext == 'png'){
+						$fileName1 = substr(sha1(rand(000,9999)),0,7).$_FILES['file']['name'];
+						$targetPath1 = getcwd().'/assets/admin/images/image-gallery/';
+						$targetFile1 = $targetPath1.$fileName1;
+						move_uploaded_file($tempFile1,$targetFile1);
+						
+						$data_listing_gallery['listing_id'] = $listing_id;
+						$data_listing_gallery['pic'] = $fileName1;
+						
+						$this->load->database(); // load database
+						$this->db->insert('listing_gallery',array('listing_id' => $listing_id,'pic' => $fileName1));						
+					}else{
+						$image = imagecreatefromjpeg($tempFile1);
+						$fileName1 = substr(sha1(rand(000,9999)),0,7).$_FILES['file']['name'];
+						$targetPath1 = getcwd().'/assets/admin/images/image-gallery/';
+						$CompressedFile1 = $targetPath1.$fileName1;
+						ImageJPEG($image,$CompressedFile1,50);
+						
+						$data_listing_gallery['listing_id'] = $listing_id;
+						$data_listing_gallery['pic'] = $fileName1;
+						
+						$this->load->database(); // load database
+						$this->db->insert('listing_gallery',array('listing_id' => $listing_id,'pic' => $fileName1));
+					}
 				}
 				redirect('admin/edit_listing/'.$listing_id.'');
 			}
@@ -481,10 +456,18 @@
 				//Pics
 				$result1 = $this->listings_model->get_listing_pic($listing_id);
 				$pic = $result1[0]['pic'];
-				$path = getcwd().'/assets/admin/images/image-gallery/'.$pic;
-				unlink($path);
+				$path1 = getcwd().'/assets/admin/images/image-gallery/'.$pic;
+				unlink($path1);
+				//Gallery
+				$result2 = $this->listings_model->listing_gallery_counter($listing_id);
+				$counter = $result2;
+				//print_r($counter);exit;
+				$result3 = $this->listings_model->delete_listing_galleries($listing_id,$counter);
+				//$gallery = $result2[0]['pic'];
+				//$path2 = getcwd().'/assets/admin/images/image-gallery/'.$gallery;
+				//unlink($path2);
 				//Records
-				$result2 = $this->listings_model->delete_listing($listing_id);
+				$result4 = $this->listings_model->delete_listing($listing_id);
 				redirect('admin/listings');
 			}
 		}

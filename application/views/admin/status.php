@@ -153,7 +153,7 @@
 								<?php for($i=0; $i < $pdf_counter; $i++){ ?>
 									<li>
 										<i class="fa fa-file-pdf-o"></i>
-										<a href="<?=ASSETS_ADMIN_DIR_FILE?><?php echo $listing_pdf[$i]['pdf']; ?>" download>Download this PDF file <?php echo $i+1;?></a>
+										<a href="<?=ASSETS_ADMIN_DIR_FILE?><?php echo $listing_pdf[$i]['pdf']; ?>" download><?php echo $listing_pdf[$i]['pdf']; ?></a>
 									</li>
 								<?php } } ?>
                             </ul>

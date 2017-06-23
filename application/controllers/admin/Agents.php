@@ -80,45 +80,36 @@
 				//Dropzone Pic
 				if(!empty($_FILES)){
 					$tempFile1 = $_FILES['file']['tmp_name'];
+					$origFile1 = $_FILES['file']['name'];
 					
-					//Include ImgCompressor.php
-					include_once('ImgCompressor.php');
-
-					//Setting
-					$setting = array(
-						'directory' => getcwd().'/assets/admin/images/users', // directory file compressed output
-						'file_type' => array( // file format allowed
-							'image/jpeg',
-							'image/png',
-							'image/gif'
-						)
-					);
-
-					//Create Object
-					$ImgCompressor = new ImgCompressor($setting);
-
-					//Run('STRING original file path', 'output file type', INTEGER Compression level: from 0 (no compression) to 9);
-					$result1 = $ImgCompressor->run($tempFile1, 'jpg', 9); // example level = 2 same quality 80%, level = 7 same quality 30% etc
-
-					$CompressedFile1 = $result1['data']['compressed']['name'];
-					$targetFile1 = $result1['data']['compressed']['image'];
-					move_uploaded_file($CompressedFile1,$targetFile1);
+					$ext = pathinfo($origFile1, PATHINFO_EXTENSION);
+					if($ext == 'png'){
+						$fileName1 = substr(sha1(rand(000,9999)),0,7).$_FILES['file']['name'];
+						$targetPath1 = getcwd().'/assets/admin/images/users/';
+						$targetFile1 = $targetPath1.$fileName1;
+						move_uploaded_file($tempFile1,$targetFile1);
+						
+						$data_agent['pic'] = $fileName1;
+						$result1 = $this->users_model->add_agent($data_agent);
+					}else{
+						$image = imagecreatefromjpeg($tempFile1);
+						$fileName1 = substr(sha1(rand(000,9999)),0,7).$_FILES['file']['name'];
+						$targetPath1 = getcwd().'/assets/admin/images/users/';
+						$CompressedFile1 = $targetPath1.$fileName1;
+						ImageJPEG($image,$CompressedFile1,50);
+						
+						$data_agent['pic'] = $fileName1;
+						$result1 = $this->users_model->add_agent($data_agent);
+					}
 					
-					//$fileName = substr(sha1(rand(000,9999)),0,7).$_FILES['file']['name'];
-					//$targetPath = getcwd().'/assets/admin/images/users/';
-					//$targetFile = $targetPath.$fileName;
-					//move_uploaded_file($tempFile,$targetFile);
-					
-					$data_agent['pic'] = $CompressedFile1;
-					$result2 = $this->users_model->add_agent($data_agent);
-					if($result2){
+					if($result1){
 						$this->session->set_flashdata('success','Agent Added Successfully');
 					}else{
 						$this->session->set_flashdata('error','Agent Already Exists !');
 					}
 				}else{
-					$result3 = $this->users_model->add_agent($data_agent);
-					if($result3){
+					$result2 = $this->users_model->add_agent($data_agent);
+					if($result2){
 						$this->session->set_flashdata('success','Agent Added Successfully');
 					}else{
 						$this->session->set_flashdata('error','Agent Already Exists !');
@@ -143,47 +134,34 @@
 				//Dropzone Pic
 				if(!empty($_FILES)){
 					$tempFile1 = $_FILES['file']['tmp_name'];
+					$origFile1 = $_FILES['file']['name'];
 					
-					//Include ImgCompressor.php
-					include_once('ImgCompressor.php');
-
-					//Setting
-					$setting = array(
-						'directory' => getcwd().'/assets/admin/images/users', // directory file compressed output
-						'file_type' => array( // file format allowed
-							'image/jpeg',
-							'image/png',
-							'image/gif'
-						)
-					);
-
-					//Create Object
-					$ImgCompressor = new ImgCompressor($setting);
-
-					//Run('STRING original file path', 'output file type', INTEGER Compression level: from 0 (no compression) to 9);
-					$result1 = $ImgCompressor->run($tempFile1, 'jpg', 7); // example level = 2 same quality 80%, level = 7 same quality 30% etc
-
-					$CompressedFile1 = $result1['data']['compressed']['name'];
-					$targetFile1 = $result1['data']['compressed']['image'];
-					move_uploaded_file($CompressedFile1,$targetFile1);
-					
-					//$fileName = substr(sha1(rand(000,9999)),0,7).$_FILES['file']['name'];
-					//$targetPath = getcwd().'/assets/admin/images/users/';
-					//$targetFile = $targetPath.$fileName ;
-					//move_uploaded_file($tempFile,$targetFile);
+					$ext = pathinfo($origFile1, PATHINFO_EXTENSION);
+					if($ext == 'png'){
+						$fileName1 = substr(sha1(rand(000,9999)),0,7).$_FILES['file']['name'];
+						$targetPath1 = getcwd().'/assets/admin/images/users/';
+						$targetFile1 = $targetPath1.$fileName1;
+						move_uploaded_file($tempFile1,$targetFile1);
+					}else{
+						$image = imagecreatefromjpeg($tempFile1);
+						$fileName1 = substr(sha1(rand(000,9999)),0,7).$_FILES['file']['name'];
+						$targetPath1 = getcwd().'/assets/admin/images/users/';
+						$CompressedFile1 = $targetPath1.$fileName1;
+						ImageJPEG($image,$CompressedFile1,50);						
+					}
 					
 					//Unlink Pic
-					$result2 = $this->users_model->get_agent($agent_id);
-					$pic = $result2[0]['pic'];
+					$result1 = $this->users_model->get_agent($agent_id);
+					$pic = $result1[0]['pic'];
 					$path = getcwd().'/assets/admin/images/users/'.$pic;
 					unlink($path);
 					
-					$pic = array('pic' => $CompressedFile1);
-					$result3 = $this->users_model->edit_agent_pic($agent_id,$pic);
-					$result4 = $this->users_model->edit_agent($data_new_agent,$agent_id);
+					$pic = array('pic' => $fileName1);
+					$result2 = $this->users_model->edit_agent_pic($agent_id,$pic);
+					$result3 = $this->users_model->edit_agent($data_new_agent,$agent_id);
 					redirect('admin/edit_agent/'.$agent_id.'');
 				}else{
-					$resul5 = $this->users_model->edit_agent($data_new_agent,$agent_id);
+					$resul4 = $this->users_model->edit_agent($data_new_agent,$agent_id);
 					redirect('admin/edit_agent/'.$agent_id.'');				
 				}
 			}

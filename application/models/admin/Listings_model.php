@@ -126,11 +126,40 @@
 			return $result;
 		}
 		
-		//Listing Gallery Delete
+		//Listing Gallery Single Delete
 		function delete_listing_gallery($gallery_id){
 			$this->db->where('id',$gallery_id);
 			$result = $this->db->delete($this->gallery_table);
 			return $result;
+		}
+		
+		//Listing Gallery Counter
+		function listing_gallery_counter($listing_id){
+			$this->db->select('*');
+			$this->db->from($this->gallery_table);
+			$this->db->where('listing_id',$listing_id);
+			$query = $this->db->get();
+			$result = $query->num_rows();
+			return $result;
+		}
+		
+		//Listing Gallery Full Delete
+		function delete_listing_galleries($listing_id,$counter){
+			$this->db->select('pic');
+			$this->db->from($this->gallery_table);
+			$this->db->where('listing_id',$listing_id);
+			$query = $this->db->get();
+			$result1 = $query->result_array();
+			
+			for($i=0;$i<$counter;$i++){
+				$gallery = $result1[$i]['pic'];
+				$path = getcwd().'/assets/admin/images/image-gallery/'.$gallery;
+				unlink($path);
+			}
+			
+			$this->db->where('listing_id',$listing_id);
+			$result2 = $this->db->delete($this->gallery_table);
+			//return $result;
 		}
 		
 		//Listing Delete
