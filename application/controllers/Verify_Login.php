@@ -1,7 +1,7 @@
 <?php
 	defined('BASEPATH') OR exit('No direct script access allowed');
 	
-	class VerifyLogin extends CI_Controller {
+	class Verify_Login extends CI_Controller {
 		
 		function __construct(){
 			parent::__construct();

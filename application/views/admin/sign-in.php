@@ -14,7 +14,7 @@
 				<div class="notification-success" style="text-align:center; margin-bottom:5px;"><div style="color:#090">
 				<?php echo $success; unset($success); ?></div></div><?php }	?>
 				
-                <form id="login_form" action="verifylogin" method="POST">
+                <form id="login_form" action="verify_login" method="POST">
                     <div class="msg">AGENT ACCESS</div>
                     <div class="input-group">
                         <span class="input-group-addon">

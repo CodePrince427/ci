@@ -63,14 +63,42 @@
         <aside id="leftsidebar" class="sidebar">
             <!-- Menu -->
             <div class="menu">
-                <ul class="nav nav-tabs main-nav" role="tablist">
-                    <?php for($i=0; $i < $steps_counter; $i++){ ?>
-					<li class="waves-effect">
-						<a href="<?php echo base_url();?>admin/edit_step/<?php echo $listing_steps[$i]['id'];?>" aria-expanded="false">
-						<?php echo $listing_steps[$i]['step_name']; ?></a>
-					</li>
-					<?php } ?>
-                </ul>
+                <div class="slimScrollDiv">
+                    <ul class="list">
+                        <li>
+                            <a href="javascript:void(0)" class="menu-toggle waves-effect waves-block">
+                                <i class="material-icons">list</i>
+                                <span>Listing Process</span>
+                            </a>
+                            <ul class="ml-menu">
+                                <ul class="nav nav-tabs main-nav" role="tablist">
+                                    <?php for($i=0; $i < $steps_counter; $i++){ ?>
+                                    <li class="waves-effect">
+                                        <a href="<?php echo base_url();?>admin/edit_step/<?php echo $listing_steps[$i]['id'];?>" aria-expanded="false">
+                                        <?php echo $listing_steps[$i]['step_name']; ?></a>
+                                    </li>
+                                    <?php } ?>
+                                </ul>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" class="menu-toggle waves-effect waves-block">
+                                <i class="material-icons">subject</i>
+                                <span>Closing Process</span>
+                            </a>
+                            <ul class="ml-menu">
+                                <ul class="nav nav-tabs main-nav" role="tablist">
+                                    <!-- <?php for($i=0; $i < $steps_counter; $i++){ ?>
+                                    <li class="waves-effect">
+                                        <a href="<?php echo base_url();?>admin/edit_step/<?php echo $listing_steps[$i]['id'];?>" aria-expanded="false">
+                                        <?php echo $listing_steps[$i]['step_name']; ?></a>
+                                    </li>
+                                    <?php } ?> -->
+                                </ul>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
             </div>
             <!-- #Menu -->
         </aside>

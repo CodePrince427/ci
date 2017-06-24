@@ -17,7 +17,7 @@
 					<div class="notification png_bg"><div style="color:#090">
 					<?php echo $success; unset($success); ?></div></div><?php }	?>
 					
-                    <form id="code_form" action="<?php echo base_url(); ?>verifycode" method="POST">
+                    <form id="code_form" action="<?php echo base_url(); ?>verify_code" method="POST">
                         <div class="msg">Please enter your unique code below</div>
                         <div class="input-group">
                             <div class="form-line">

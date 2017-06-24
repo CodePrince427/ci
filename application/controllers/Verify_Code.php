@@ -2,7 +2,7 @@
 <?php
 	defined('BASEPATH') OR exit('No direct script access allowed');
 	
-	class VerifyCode extends CI_Controller {
+	class Verify_Code extends CI_Controller {
 		
 		function __construct(){
 			parent::__construct();
