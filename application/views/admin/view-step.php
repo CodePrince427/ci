@@ -72,9 +72,9 @@
                             </a>
                             <ul class="ml-menu">
                                 <ul class="nav nav-tabs main-nav" role="tablist">
-                                    <?php for($i=0; $i < $steps_counter; $i++){ ?>
+                                    <?php for($i=0; $i < $steps_counter1; $i++){ ?>
                                     <li class="waves-effect">
-                                        <a href="<?php echo base_url();?>admin/edit_step/<?php echo $listing_steps[$i]['id'];?>" aria-expanded="false">
+                                        <a href="<?php echo base_url();?>admin/edit_step/<?php echo $listing_steps[$i]['id'];?>/1" aria-expanded="false">
                                         <?php echo $listing_steps[$i]['step_name']; ?></a>
                                     </li>
                                     <?php } ?>
@@ -88,12 +88,12 @@
                             </a>
                             <ul class="ml-menu">
                                 <ul class="nav nav-tabs main-nav" role="tablist">
-                                    <!-- <?php for($i=0; $i < $steps_counter; $i++){ ?>
+                                    <?php for($j=0; $j < $steps_counter2; $j++){ ?>
                                     <li class="waves-effect">
-                                        <a href="<?php echo base_url();?>admin/edit_step/<?php echo $listing_steps[$i]['id'];?>" aria-expanded="false">
-                                        <?php echo $listing_steps[$i]['step_name']; ?></a>
+                                        <a href="<?php echo base_url();?>admin/edit_step/<?php echo $closing_steps[$j]['id'];?>/2" aria-expanded="false">
+                                        <?php echo $closing_steps[$j]['step_name']; ?></a>
                                     </li>
-                                    <?php } ?> -->
+                                    <?php } ?>
                                 </ul>
                             </ul>
                         </li>
@@ -124,8 +124,12 @@
                         <div class="header">
                             <div class="row clearfix">
                                 <div class="col-xs-12 col-sm-6">
-                                    <h2>Listing Steps</h2>
-                                </div>
+									<?php if($this->uri->segment(4) == 1){ ?>
+										<h2>Listing Step</h2>
+									<?php }else{ ?>
+										<h2>Closing Step</h2>
+									<?php } ?>
+								</div>
                                 <ul class="header-dropdown m-r--5">
                                     <li class="dropdown">
                                         <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -144,9 +148,13 @@
                                 <div role="tabpanel" class="tab-pane active in fade" id="tab1">
                                     <div class="row">
                                         <div class="col-lg-12">
-                                            <h2>Listing Step Information:</h2>
+											<?php if($this->uri->segment(4) == 1){ ?>
+												<h2>Listing Step Information:</h2>
+											<?php }else{ ?>
+												<h2>Closing Step Information:</h2>
+											<?php } ?>
                                             <br />
-                                            <form action="<?php echo base_url();?>admin/update_step/<?php echo $this->uri->segment(3); ?>" method="POST" enctype="multipart/form-data">
+                                            <form action="<?php echo base_url();?>admin/update_step/<?php echo $this->uri->segment(3); ?>/<?php echo $this->uri->segment(4); ?>" method="POST" enctype="multipart/form-data">
                                                 
 												<?php $success = $this->session->flashdata('success'); if(!empty($success)){ ?>
 												<div class="alert alert-success"><?php echo $success; unset($success); ?></div><?php } ?>
@@ -155,7 +163,17 @@
 												
 												<div class="form-group form-float form-group-lg">
 													<div class="form-line">
-														<input type="number" name="no" class="form-control" value="<?php echo $listing_step[0]['step_no']; ?>" autofocus required />
+														<?php if($this->uri->segment(4) == 1){ ?>
+														<input type="text" name="process" class="form-control" value="Listing Process" readonly />
+														<?php }else{ ?>
+														<input type="text" name="process" class="form-control" value="Closing Process" readonly />
+														<?php } ?>
+														</select>
+														<label class="form-label">Process:</label>
+													</div>
+													<br>
+													<div class="form-line">
+														<input type="number" name="no" class="form-control" value="<?php echo $listing_step[0]['step_no']; ?>" required />
 														<label class="form-label">Step No:</label>
 													</div>
 													<br>
@@ -203,7 +221,7 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						<a href="<?php echo base_url();?>admin/delete_step/<?php echo $this->uri->segment(3);?>" class="btn btn-danger">Delete</a>
+						<a href="<?php echo base_url();?>admin/delete_step/<?php echo $this->uri->segment(3);?>/<?php echo $this->uri->segment(4);?>" class="btn btn-danger">Delete</a>
 					</div>
 				</div>
 

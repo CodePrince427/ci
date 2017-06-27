@@ -43,14 +43,42 @@
         <aside id="leftsidebar" class="sidebar">
             <!-- Menu -->
             <div class="menu">
-                <ul class="nav nav-tabs main-nav" role="tablist">
-                    <?php for($i=0; $i < $steps_counter; $i++){ ?>
-					<li class="waves-effect">
-						<a href="<?php echo base_url();?>admin/edit_step/<?php echo $listing_steps[$i]['id'];?>" aria-expanded="false">
-						<?php echo $listing_steps[$i]['step_name']; ?></a>
-					</li>
-					<?php } ?>
-                </ul>
+                <div class="slimScrollDiv">
+                    <ul class="list">
+                        <li>
+                            <a href="javascript:void(0)" class="menu-toggle waves-effect waves-block">
+                                <i class="material-icons">list</i>
+                                <span>Listing Process</span>
+                            </a>
+                            <ul class="ml-menu">
+                                <ul class="nav nav-tabs main-nav" role="tablist">
+                                    <?php for($i=0; $i < $steps_counter1; $i++){ ?>
+                                    <li class="waves-effect">
+                                        <a href="<?php echo base_url();?>admin/edit_step/<?php echo $listing_steps[$i]['id'];?>/1" aria-expanded="false">
+                                        <?php echo $listing_steps[$i]['step_name']; ?></a>
+                                    </li>
+                                    <?php } ?>
+                                </ul>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)" class="menu-toggle waves-effect waves-block">
+                                <i class="material-icons">subject</i>
+                                <span>Closing Process</span>
+                            </a>
+                            <ul class="ml-menu">
+                                <ul class="nav nav-tabs main-nav" role="tablist">
+                                    <?php for($j=0; $j < $steps_counter2; $j++){ ?>
+                                    <li class="waves-effect">
+                                        <a href="<?php echo base_url();?>admin/edit_step/<?php echo $closing_steps[$j]['id'];?>/2" aria-expanded="false">
+                                        <?php echo $closing_steps[$j]['step_name']; ?></a>
+                                    </li>
+                                    <?php } ?>
+                                </ul>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
             </div>
             <!-- #Menu -->
         </aside>
@@ -76,7 +104,7 @@
                         <div class="header">
                             <div class="row clearfix">
                                 <div class="col-xs-12 col-sm-6">
-                                    <h2>Listing Steps</h2>
+                                    <h2>New Process Step</h2>
                                 </div>
                                 <ul class="header-dropdown m-r--5">
                                     <li class="dropdown">
@@ -95,7 +123,7 @@
                                 <div role="tabpanel" class="tab-pane active in fade" id="tab1">
                                     <div class="row">
                                         <div class="col-lg-12">
-                                            <h2>Listing Step Information:</h2>
+                                            <h2>Process Step Information:</h2>
                                             <br />
                                             <form action="<?php echo base_url();?>admin/insert_step" method="POST" enctype="multipart/form-data">
 
@@ -106,7 +134,16 @@
 
 												<div class="form-group form-float form-group-lg">
 													<div class="form-line">
-														<input type="number" name="no" class="form-control" autofocus required />
+														<select name="process" class="form-control" autofocus required >
+															<option value="">-- Please Choose Process --</option>
+															<option value="1">Listing Process</option>
+															<option value="2">Closing Process</option>
+														</select>
+														<label class="form-label">Process:</label>
+													</div>
+													<br>
+													<div class="form-line">
+														<input type="number" name="no" class="form-control" required />
 														<label class="form-label">Step No:</label>
 													</div>
 													<br>

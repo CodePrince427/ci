@@ -48,41 +48,51 @@
 				$data['listing'] = $result2;
 				
 				//Listing Steps Info
-				$step_id = $data['listing'][0]['step_id'];
-				$result3 = $this->steps_model->get_listing_step($step_id);
+				$step_id1 = $data['listing'][0]['step_id'];
+				$result3 = $this->steps_model->get_listing_step($step_id1);
 				$data['listing_step'] = $result3;
 				
-				$result4 = $this->steps_model->list_steps();
+				$result4 = $this->steps_model->listing_steps();
 				$data['listing_steps'] = $result4;
-				$data['steps_counter'] = count($result4);
+				$data['steps_counter1'] = count($result4);
+				
+				//Closing Steps Info
+				$step_id2 = $data['listing'][0]['step_id'];
+				$result5 = $this->steps_model->get_closing_step($step_id2);
+				$data['closing_step'] = $result5;
+				
+				$result6 = $this->steps_model->closing_steps();
+				$data['closing_steps'] = $result6;
+				$data['steps_counter2'] = count($result6);
 				
 				//Listing Pic
-				$result5 = $this->listings_model->get_listing_pic($listing_id);
-				$data['listing_pic'] = $result5;
+				$result7 = $this->listings_model->get_listing_pic($listing_id);
+				$data['listing_pic'] = $result7;
 				
 				//Agents List
-				$result6 = $this->users_model->list_agents();
-				$data['agent_list'] = $result6;
+				$result8 = $this->users_model->list_agents();
+				$data['agent_list'] = $result8;
 				
 				//Agent Info
 				$agent_id = $data['listing'][0]['agent_id'];
-				$result7 = $this->users_model->get_agent($agent_id);
-				$data['agent'] = $result7;
+				$result9 = $this->users_model->get_agent($agent_id);
+				$data['agent'] = $result9;
 				
 				//Seller Info
 				$seller_id = $data['listing'][0]['seller_id'];
-				$result8 = $this->users_model->get_seller($seller_id);
-				$data['seller'] = $result8;
+				$result10 = $this->users_model->get_seller($seller_id);
+				$data['seller'] = $result10;
 				
 				//PDFs
-				$result9 = $this->status_model->get_pdf($listing_id);
-				$data['listing_pdf'] = $result9;
-				$data['pdf_counter'] = count($result9);
+				$result11 = $this->status_model->get_pdf($listing_id);
+				$data['listing_pdf'] = $result11;
+				$data['pdf_counter'] = count($result11);
 				
 				//Gallery
-				$result10 = $this->status_model->get_listing_gallery($listing_id);
-				$data['listing_gallery'] = $result10;
-				$data['pic_counter'] = count($result10);
+				$result12 = $this->status_model->get_listing_gallery($listing_id);
+				$data['listing_gallery'] = $result12;
+				$data['pic_counter'] = count($result12);
+				//echo "<pre>";print_r($data);exit;
 				
 				$this->load->view('admin/common/header_3');
 				$this->load->view('admin/view-listing',$data);
@@ -102,7 +112,7 @@
 				$data['listing_code'] = strtoupper(substr(sha1(rand(000,9999)),0,7));
 				
 				//Listing Steps
-				$result3 = $this->steps_model->list_steps();
+				$result3 = $this->steps_model->listing_steps();
 				$data['listing_steps'] = $result3;
 				$data['steps_counter'] = count($result3);
 				
@@ -198,17 +208,48 @@
 				);
 				$result1 = $this->users_model->add_seller($data_new_seller);
 				
-				$data_new_listing = array(
-					'address'	=>	$this->input->post('address'),
-					'city'		=>	$this->input->post('city'),
-					'state'		=>	$this->input->post('state'),
-					'zipcode'	=>	$this->input->post('zipcode'),
-					'process'	=>	$this->input->post('process'),
-					'step_id'	=>	$this->input->post('step'),
-					'price'		=>	$this->input->post('price'),
-					'agent_id'	=>	$this->input->post('agent'),
-					'seller_id'	=>	$result1['id']
-				);
+				//Checking Process Step Change
+				$listing_step = $this->input->post('listing_step');
+				$closing_step = $this->input->post('closing_step');
+				if($listing_step == '' && $closing_step == ''){
+					$data_new_listing = array(
+						'address'	=>	$this->input->post('address'),
+						'city'		=>	$this->input->post('city'),
+						'state'		=>	$this->input->post('state'),
+						'zipcode'	=>	$this->input->post('zipcode'),
+						'process'	=>	$this->input->post('process'),
+						'step_id'	=>	$this->input->post('step'),
+						'price'		=>	$this->input->post('price'),
+						'agent_id'	=>	$this->input->post('agent'),
+						'seller_id'	=>	$result1['id']
+					);
+				}elseif($listing_step == '' && $closing_step != ''){
+					$data_new_listing = array(
+						'address'	=>	$this->input->post('address'),
+						'city'		=>	$this->input->post('city'),
+						'state'		=>	$this->input->post('state'),
+						'zipcode'	=>	$this->input->post('zipcode'),
+						'process'	=>	$this->input->post('process'),
+						'step_id'	=>	$closing_step,
+						'price'		=>	$this->input->post('price'),
+						'agent_id'	=>	$this->input->post('agent'),
+						'seller_id'	=>	$result1['id']
+					);
+				}else{
+					$data_new_listing = array(
+						'address'	=>	$this->input->post('address'),
+						'city'		=>	$this->input->post('city'),
+						'state'		=>	$this->input->post('state'),
+						'zipcode'	=>	$this->input->post('zipcode'),
+						'process'	=>	$this->input->post('process'),
+						'step_id'	=>	$listing_step,
+						'price'		=>	$this->input->post('price'),
+						'agent_id'	=>	$this->input->post('agent'),
+						'seller_id'	=>	$result1['id']
+					);
+				}
+				
+				//echo "<pre>";print_r($data_new_listing);exit;
 				$result2 = $this->listings_model->edit_listing($listing_id,$data_new_listing);
 				
 				//Without Dropzone - Pic & PDF
@@ -283,7 +324,7 @@
 				$result3 = $this->steps_model->get_listing_step($step_id);
 				$data['listing_step'] = $result3;
 				
-				$result4 = $this->steps_model->list_steps();
+				$result4 = $this->steps_model->listing_steps();
 				$data['listing_steps'] = $result4;
 				$data['steps_counter'] = count($result4);
 				

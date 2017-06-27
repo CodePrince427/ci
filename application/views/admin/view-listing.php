@@ -227,23 +227,63 @@
 											<div class="col-lg-6">
 												<strong>Listing Status Information:</strong>
 												<br /><br />
-												<select class="form-control show-tick" name="process">
+												<select id="process" class="form-control show-tick" name="process">
 													<?php if($listing[0]['process'] == 'Listing Process'){ ?>
-													<option value="<?php echo $listing[0]['process']; ?>">Listing Process</option>
+													<option value="<?php echo $listing[0]['process']; ?>" selected>Listing Process</option>
+													<option value="Closing Process">Closing Process</option>
+													<?php }elseif($listing[0]['process'] == 'Closing Process'){ ?>
+													<option value="<?php echo $listing[0]['process']; ?>" selected>Closing Process</option>
+													<option value="Listing Process">Listing Process</option>
 													<?php }else{ ?>
 													<option value="">-- Please choose from the drop down --</option>
 													<option value="Listing Process">Listing Process</option>
+													<option value="Closing Process">Closing Process</option>
 													<?php } ?>
 												</select>
 												<br /><br />
-												<select class="form-control show-tick" name="step">
-													<?php for($k=0; $k<$steps_counter; $k++){ ?>
-													<option value="<?php echo $listing_steps[$k]['id']; ?>"
-													<?php if($listing_step[0]['step_no'] == $listing_steps[$k]['step_no']){ echo "selected"; }else{ echo ""; } ?>>
-														Step <?php echo $listing_steps[$k]['step_no']; ?>: <?php echo $listing_steps[$k]['step_name']; ?>
-													</option>
-													<?php } ?>
-												</select>
+												
+												<div id="ListingStep">
+													<select class="form-control show-tick" name="step">
+														<?php if($listing[0]['process'] == 'Listing Process'){ ?>
+															<?php for($k=0; $k<$steps_counter1; $k++){ ?>
+															<option value="<?php echo $listing_steps[$k]['id']; ?>"
+															<?php if($listing_step[0]['step_no'] == $listing_steps[$k]['step_no']){ echo "selected"; }else{ echo ""; } ?>>
+																Step <?php echo $listing_steps[$k]['step_no']; ?>: <?php echo $listing_steps[$k]['step_name']; ?>
+															</option>
+															<?php } ?>
+														<?php }elseif($listing[0]['process'] == 'Closing Process'){ ?>
+															<?php for($l=0; $l<$steps_counter2; $l++){ ?>
+															<option value="<?php echo $closing_steps[$l]['id']; ?>"
+															<?php if($closing_step[0]['step_no'] == $closing_steps[$l]['step_no']){ echo "selected"; }else{ echo ""; } ?>>
+																Step <?php echo $closing_steps[$l]['step_no']; ?>: <?php echo $closing_steps[$l]['step_name']; ?>
+															</option>
+															<?php } ?>
+														<?php } ?>
+													</select>													
+												</div>
+												
+												<!-- New Steps -->
+												<div id="NewStep1" style="display:none;">
+													<select class="form-control show-tick" name="listing_step">
+														<option value="">Select Step</option>
+														<?php for($o=0; $o<$steps_counter1; $o++){ ?>
+														<option value="<?php echo $listing_steps[$o]['id']; ?>">
+															Step <?php echo $listing_steps[$o]['step_no']; ?>: <?php echo $listing_steps[$o]['step_name']; ?>
+														</option>
+														<?php } ?>
+													</select>													
+												</div>
+												<div id="NewStep2" style="display:none;">
+													<select class="form-control show-tick" name="closing_step">
+														<option value="">Select Step</option>
+														<?php for($p=0; $p<$steps_counter2; $p++){ ?>
+														<option value="<?php echo $closing_steps[$p]['id']; ?>">
+															Step <?php echo $closing_steps[$p]['step_no']; ?>: <?php echo $closing_steps[$p]['step_name']; ?>
+														</option>
+														<?php } ?>
+													</select>													
+												</div>
+												
 											</div>
 										</div>
 										<hr />
@@ -264,20 +304,22 @@
 													<span>No Photos uploaded yet....</span>
 												</ul>
 												<?php }else{ ?>
-												<?php for($l=0; $l < $pic_counter; $l++){ ?>
+												<?php for($m=0; $m < $pic_counter; $m++){ ?>
 												<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
 													<ul class="list-inline">
-														<li data-toggle="modal" data-target="#ModalGallery<?php echo $listing_gallery[$l]['id']; ?>">
-															<a href="#Gallery<?php echo $listing_gallery[$l]['id']; ?>" data-slide-to="<?php echo $l; ?>">
-																<img class="img-thumbnail" src="<?=ASSETS_ADMIN_DIR_GALLERY?><?php echo $listing_gallery[$l]['pic']; ?>" style="width:100%; height:100px;" />
+														<li data-toggle="modal" data-target="#ModalGallery<?php echo $listing_gallery[$m]['id']; ?>">
+															<a href="#Gallery<?php echo $listing_gallery[$m]['id']; ?>" data-slide-to="<?php echo $m; ?>">
+																<div class="img-crop">
+																<img class="img-thumbnail" src="<?=ASSETS_ADMIN_DIR_GALLERY?><?php echo $listing_gallery[$m]['pic']; ?>" />
+																</div>
 															</a>
 														</li>
 													</ul>
-													<a href="#DelGallery<?php echo $listing_gallery[$l]['id']; ?>" data-toggle="modal"><i class="fa fa-trash"></i> Delete Image</a>
+													<a href="#DelGallery<?php echo $listing_gallery[$m]['id']; ?>" data-toggle="modal"><i class="fa fa-trash"></i> Delete Image</a>
 												</div>
-
+												
 												<!-- Gallery Modal -->
-												<div id="ModalGallery<?php echo $listing_gallery[$l]['id']; ?>" class="modal fade" role="dialog">
+												<div id="ModalGallery<?php echo $listing_gallery[$m]['id']; ?>" class="modal fade" role="dialog">
 													<div class="modal-dialog">
 
 														<!-- Modal content -->
@@ -288,7 +330,7 @@
 															</div>
 															<div class="modal-body">
 																<!-- Carousel -->
-																<div id="Gallery<?php echo $listing_gallery[$l]['id']; ?>" class="carousel slide" data-interval="false" data-ride="carousel">
+																<div id="Gallery<?php echo $listing_gallery[$m]['id']; ?>" class="carousel slide" data-interval="false" data-ride="carousel">
 																	<ol class="carousel-indicators">
 																		<?php $m = 1; foreach($listing_gallery as $gallery):$ol_class = ($m == 1) ? 'active' : ''; ?>
 																		<li data-target="#Gallery" data-slide-to="<?php echo $m; ?>" class="<?php echo $ol_class; ?>"></li>
@@ -303,10 +345,10 @@
 																			<?php $m++; endforeach; ?>
 																	</div>
 
-																	<a class="left carousel-control" href="#Gallery<?php echo $listing_gallery[$l]['id']; ?>" role="button" data-slide="prev">
+																	<a class="left carousel-control" href="#Gallery<?php echo $listing_gallery[$m]['id']; ?>" role="button" data-slide="prev">
 																		<span class="glyphicon glyphicon-chevron-left"></span>
 																	</a>
-																	<a class="right carousel-control" href="#Gallery<?php echo $listing_gallery[$l]['id']; ?>" role="button" data-slide="next">
+																	<a class="right carousel-control" href="#Gallery<?php echo $listing_gallery[$m]['id']; ?>" role="button" data-slide="next">
 																		<span class="glyphicon glyphicon-chevron-right"></span>
 																	</a>
 																</div>
@@ -320,7 +362,7 @@
 												</div>
 
 												<!-- Delete Gallery Modal -->
-												<div id="DelGallery<?php echo $listing_gallery[$l]['id']; ?>" class="modal fade" role="dialog">
+												<div id="DelGallery<?php echo $listing_gallery[$m]['id']; ?>" class="modal fade" role="dialog">
 													<div class="modal-dialog">
 
 														<!-- Modal content -->
@@ -336,12 +378,13 @@
 															</div>
 															<div class="modal-footer">
 																<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-																<a href="<?php echo base_url();?>admin/delete_listing_gallery/<?php echo $listing_gallery[$l]['id']; ?>/<?php echo $this->uri->segment(3);?>" class="btn btn-danger">Delete</a>
+																<a href="<?php echo base_url();?>admin/delete_listing_gallery/<?php echo $listing_gallery[$m]['id']; ?>/<?php echo $this->uri->segment(3);?>" class="btn btn-danger">Delete</a>
 															</div>
 														</div>
 
 													</div>
 												</div>
+												
 												<?php } } ?>
 											</div>
 										</div>
@@ -381,22 +424,22 @@
 										<?php }else{ ?>
                                         <div class="row uploaded-pdfs-row">
                                             <ul class="list-group uploaded-pdfs">
-												<?php for($i=0; $i < $pdf_counter; $i++){ ?>
+												<?php for($n=0; $n < $pdf_counter; $n++){ ?>
                                                     <li class="col-lg-4 list-group-item">
                                                         <i class="fa fa-file-pdf-o"></i>
-    													<span style="font-style:;"><?php echo $listing_pdf[$i]['pdf']; ?></span><br/><br/>
-    													<a href="<?=ASSETS_ADMIN_DIR_FILE?><?php echo $listing_pdf[$i]['pdf']; ?>" download>
+    													<span style="font-style:;"><?php echo $listing_pdf[$n]['pdf']; ?></span><br/><br/>
+    													<a href="<?=ASSETS_ADMIN_DIR_FILE?><?php echo $listing_pdf[$n]['pdf']; ?>" download>
     														<i class="fa fa-download" style="font-size:20px;color:green;"></i>
     													</a> |
-    													<a href="#EditPDF<?php echo $listing_pdf[$i]['id']; ?>" data-toggle="modal">
+    													<a href="#EditPDF<?php echo $listing_pdf[$n]['id']; ?>" data-toggle="modal">
     														<i class="fa fa-pencil" style="font-size:20px;color:blue;"></i>
     													</a> |
-    													<a href="#DelPDF<?php echo $listing_pdf[$i]['id']; ?>" data-toggle="modal">
+    													<a href="#DelPDF<?php echo $listing_pdf[$n]['id']; ?>" data-toggle="modal">
     														<i class="fa fa-trash" style="font-size:20px;color:red;"></i>
     													</a>
 
     													<!-- Edit PDF Modal -->
-    													<div id="EditPDF<?php echo $listing_pdf[$i]['id']; ?>" class="modal fade" role="dialog">
+    													<div id="EditPDF<?php echo $listing_pdf[$n]['id']; ?>" class="modal fade" role="dialog">
     														<div class="modal-dialog">
 
     															<!-- Modal content-->
@@ -406,10 +449,10 @@
     																	<h4 class="modal-title">Rename PDF</h4>
     																</div>
     																<div class="modal-body">
-    																	<form action="<?php echo base_url();?>admin/rename_listing_pdf/<?php echo $listing_pdf[$i]['id']; ?>/<?php echo $this->uri->segment(3);?>" method="POST">
+    																	<form action="<?php echo base_url();?>admin/rename_listing_pdf/<?php echo $listing_pdf[$n]['id']; ?>/<?php echo $this->uri->segment(3);?>" method="POST">
     																		<p>Are You Sure You Want to Rename this PDF?</p>
     																		<div class="form-line">
-    																			<input type="text" class="form-control" name="pdf" value="<?php echo $listing_pdf[$i]['pdf']; ?>" autofocus />
+    																			<input type="text" class="form-control" name="pdf" value="<?php echo $listing_pdf[$n]['pdf']; ?>" autofocus />
     																		</div><br/>
     																		<div class="modal-footer">
     																			<button type="submit" class="btn btn-danger">Rename</button>
@@ -423,7 +466,7 @@
     													</div>
 
     													<!-- Delete PDF Modal -->
-    													<div id="DelPDF<?php echo $listing_pdf[$i]['id']; ?>" class="modal fade" role="dialog">
+    													<div id="DelPDF<?php echo $listing_pdf[$n]['id']; ?>" class="modal fade" role="dialog">
     														<div class="modal-dialog">
 
     															<!-- Modal content-->
@@ -439,7 +482,7 @@
     																</div>
     																<div class="modal-footer">
     																	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-    																	<a href="<?php echo base_url();?>admin/delete_listing_pdf/<?php echo $listing_pdf[$i]['id']; ?>/<?php echo $this->uri->segment(3);?>" class="btn btn-danger">Delete</a>
+    																	<a href="<?php echo base_url();?>admin/delete_listing_pdf/<?php echo $listing_pdf[$n]['id']; ?>/<?php echo $this->uri->segment(3);?>" class="btn btn-danger">Delete</a>
     																</div>
     															</div>
 
@@ -492,8 +535,14 @@
 .crop-agent {
 	max-width: 350px;
 }
+/*
 .gallery-card .img-thumbnail {
 	height: auto !important;
+}
+*/
+.img-crop {
+	height: 100px;
+	overflow: hidden;
 }
 .uploaded-pdfs-row {
     margin: 0;

@@ -89,9 +89,9 @@ $route['admin/delete_listing_gallery/(:any)/(:any)'] = 'admin/listings/delete_li
 $route['admin/listing_steps'] = 'admin/steps';
 $route['admin/add_step'] = 'admin/steps/add_step';
 $route['admin/insert_step'] = 'admin/steps/insert_step';
-$route['admin/edit_step/(:any)'] = 'admin/steps/edit_step';
-$route['admin/update_step/(:any)'] = 'admin/steps/update_step';
-$route['admin/delete_step/(:any)'] = 'admin/steps/delete_step';
+$route['admin/edit_step/(:any)/(:any)'] = 'admin/steps/edit_step';
+$route['admin/update_step/(:any)/(:any)'] = 'admin/steps/update_step';
+$route['admin/delete_step/(:any)/(:any)'] = 'admin/steps/delete_step';
 
 //Search
 $route['admin/search_agent'] = 'admin/search_agents';

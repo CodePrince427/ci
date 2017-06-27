@@ -93,7 +93,11 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="header">
                         <h2>
+						<?php if($listing[0]['process'] == 'Listing Process'){ ?>
                             THE LISTING PROCESS
+						<?php }else{ ?>
+                            THE CLOSING PROCESS
+						<?php } ?>
 						</h2>
                     </div>
                     <div class="body wizard-steps">

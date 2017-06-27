@@ -55,6 +55,22 @@
 	<script src="<?=ASSETS_ADMIN_DIR?>plugins/light-gallery/js/lightgallery-all.js"></script>
     <script src="<?=ASSETS_ADMIN_DIR?>js/pages/medias/image-gallery.js"></script>-->
 	
+	<!-- JS Show Input on Select -->
+	<script>
+	$('#process').on('change',function(){
+		if( $(this).val()==="Listing Process" ){
+			$("#ListingStep").hide()
+			$("#NewStep2").hide()
+			$("#NewStep1").show()
+		}
+		else if($(this).val()==="Closing Process" ){
+			$("#ListingStep").hide()
+			$("#NewStep1").hide()
+			$("#NewStep2").show()
+		}
+	});
+	</script>
+	
 	<script>
     if (typeof jQuery === "undefined") {
         throw new Error("jQuery plugins need to be before this file");

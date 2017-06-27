@@ -12,9 +12,15 @@
 			if($this->session->userdata('log_in') == ''){
 				redirect('admin');
 			}else{
-				$result = $this->steps_model->list_steps();
-				$data['listing_steps'] = $result;
-				$data['steps_counter'] = count($result);
+				//Listing Steps
+				$result1 = $this->steps_model->listing_steps();
+				$data['listing_steps'] = $result1;
+				$data['steps_counter1'] = count($result1);					
+
+				//Closing Steps
+				$result2 = $this->steps_model->closing_steps();
+				$data['closing_steps'] = $result2;
+				$data['steps_counter2'] = count($result2);
 				
 				//Views
 				$this->load->view('admin/common/header_3');
@@ -28,9 +34,15 @@
 			if($this->session->userdata('log_in') == ''){
 				redirect('admin');
 			}else{
-				$result = $this->steps_model->list_steps();
-				$data['listing_steps'] = $result;
-				$data['steps_counter'] = count($result);
+				//Listing Steps
+				$result1 = $this->steps_model->listing_steps();
+				$data['listing_steps'] = $result1;
+				$data['steps_counter1'] = count($result1);					
+
+				//Closing Steps
+				$result2 = $this->steps_model->closing_steps();
+				$data['closing_steps'] = $result2;
+				$data['steps_counter2'] = count($result2);
 				
 				//Views
 				$this->load->view('admin/common/header_3');
@@ -43,16 +55,24 @@
 			if($this->session->userdata('log_in') == ''){
 				redirect('admin');
 			}else{
+				$process = $this->input->post('process');
+				
 				$data_step = array(
 					'step_no'	=>	$this->input->post('no'),
 					'step_name'	=>	$this->input->post('name'),
 					'content'	=>	$this->input->post('content'),
 					'video'		=>	$this->input->post('video')
 				);
-				$result = $this->steps_model->add_step($data_step);
-				$step_id = $result['id'];
 				
-				redirect('admin/edit_step/'.$step_id.'');
+				if($process == 1){
+					$result = $this->steps_model->add_listing_step($data_step);
+					$step_id = $result['id'];
+				}else{
+					$result = $this->steps_model->add_closing_step($data_step);
+					$step_id = $result['id'];
+				}
+				
+				redirect('admin/edit_step/'.$step_id.'/'.$process.'');
 			}
 		}
 		
@@ -62,13 +82,27 @@
 				redirect('admin');
 			}else{
 				$step_id = $this->uri->segment(3);
-				//Listing Steps Info
-				$result1 = $this->steps_model->get_listing_step($step_id);
-				$data['listing_step'] = $result1;
+				$process = $this->uri->segment(4);
+
+				//Listing Steps
+				$result1 = $this->steps_model->listing_steps();
+				$data['listing_steps'] = $result1;
+				$data['steps_counter1'] = count($result1);					
+
+				//Closing Steps
+				$result2 = $this->steps_model->closing_steps();
+				$data['closing_steps'] = $result2;
+				$data['steps_counter2'] = count($result2);					
 				
-				$result2 = $this->steps_model->list_steps();
-				$data['listing_steps'] = $result2;
-				$data['steps_counter'] = count($result2);
+				if($process == 1){
+					//Listing Step Info
+					$result3 = $this->steps_model->get_listing_step($step_id);
+					$data['listing_step'] = $result3;
+				}else{
+					//Closing Step Info
+					$result4 = $this->steps_model->get_closing_step($step_id);
+					$data['listing_step'] = $result4;
+				}
 				
 				$this->load->view('admin/common/header_3');
 				$this->load->view('admin/view-step',$data);
@@ -82,14 +116,22 @@
 				redirect('admin');
 			}else{
 				$step_id = $this->uri->segment(3);
+				$process = $this->uri->segment(4);
+				
 				$data_new_step = array(
 					'step_no'	=> $this->input->post('no'),
 					'step_name'	=> $this->input->post('name'),
 					'content'	=> $this->input->post('content'),
 					'video'		=> $this->input->post('video')
 				);
-				$result = $this->steps_model->edit_step($step_id,$data_new_step);
-				redirect('admin/edit_step/'.$step_id.'');				
+				
+				if($process == 1){
+					$result = $this->steps_model->edit_listing_step($step_id,$data_new_step);
+					redirect('admin/edit_step/'.$step_id.'/'.$process.'');
+				}else{
+					$result = $this->steps_model->edit_closing_step($step_id,$data_new_step);
+					redirect('admin/edit_step/'.$step_id.'/'.$process.'');
+				}
 			}
 		}
 		
@@ -99,7 +141,13 @@
 				redirect('admin');
 			}else{
 				$step_id = $this->uri->segment(3);
-				$result = $this->steps_model->delete_step($step_id);
+				$process = $this->uri->segment(4);
+				
+				if($process == 1){
+					$result = $this->steps_model->delete_listing_step($step_id);
+				}else{
+					$result = $this->steps_model->delete_closing_step($step_id);
+				}
 				redirect('admin/steps');
 			}
 		}
